@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +32,17 @@ public class UserController {
 			@PathVariable("attribute_name") String attributeName) {
 		return new Gson().toJson(userService.getAttribute(userId, locale, attributeName));
 	}
+
+	@PutMapping(value = "/{user_id}/{locale}/{attribute_name}")
+	public void addOrUpdateAttribute(
+			@PathVariable("user_id") String userId,
+			@PathVariable("locale") String locale,
+			@PathVariable("attribute_name") String attributeName,
+			@RequestBody String attributeValue) {
+
+		userService.addOrUpdateAttribute(userId, locale, attributeName, attributeValue);
+	}
+
 
 	@PostMapping(value = "/{user_id}")
 	public String createNewUser(@PathVariable("user_id") String userId) {
