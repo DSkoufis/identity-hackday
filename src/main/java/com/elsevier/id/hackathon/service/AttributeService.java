@@ -3,7 +3,7 @@ package com.elsevier.id.hackathon.service;
 import java.util.Map;
 
 public interface AttributeService {
-	Object getAttributeValues(String locale, String attributeName);
+	Map<String, Object> getAttributeValues(String locale, String attributeName);
 
 	boolean createAttribute(String attributeName, String dataType, String uiView);
 
