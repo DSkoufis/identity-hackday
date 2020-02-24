@@ -2,6 +2,7 @@ package com.elsevier.id.hackathon.service;
 
 import org.springframework.stereotype.Service;
 
+import com.amazonaws.AmazonServiceException;
 import com.elsevier.id.hackathon.repository.AttributesDAO;
 import com.elsevier.id.hackathon.repository.UserDAO;
 
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			userDAO.createUser(userId);
 			return true;
-		} catch (IllegalArgumentException e) {
+		} catch (AmazonServiceException e) {
 			return false;
 		}
 	}
