@@ -6,5 +6,5 @@ public interface UserService {
 
 	boolean createUser(String userId);
 
-	String addOrUpdateAttribute(String userId, String locale, String attributeName, Object attributeValue);
+	void addOrUpdateAttribute(String userId, String locale, String attributeName, String attributeValue);
 }

@@ -34,10 +34,8 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
-	@Override public String addOrUpdateAttribute(String userId, String locale, String attributeName, Object attributeValue) {
-
-		userDAO.addOrUpdateAttribute(userId, locale, attributeName, attributeValue);
-
-		return "";
+	@Override public void addOrUpdateAttribute(String userId, String locale, String attributeName, String attributeValue) {
+		final Object convertedValue = attributeTypeService.getAttributeType(attributeName).convert(attributeValue);
+		userDAO.addOrUpdateAttribute(userId, locale, attributeName, convertedValue);
 	}
 }
