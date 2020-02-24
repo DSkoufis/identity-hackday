@@ -39,7 +39,17 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override public void addOrUpdateAttribute(String userId, String locale, String attributeName, Object attributeValue) {
+		final boolean localeExists = getTable().getItem("user_id", userId).isPresent(locale);
 
+		if(!localeExists) {
+			//create locale
+		}
+
+		final Map<String, Object> localeMap = getTable().getItem("user_id", userId).getMap(locale);
+
+		localeMap.put(attributeName, attributeValue);
+
+		getTable().putItem()
 	}
 
 	private Table getTable() {

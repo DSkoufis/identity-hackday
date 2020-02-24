@@ -8,4 +8,3 @@ public interface UserDAO {
 
 	void addOrUpdateAttribute(String userId, String locale, String attributeName, Object attributeValue);
 }
- 
