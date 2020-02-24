@@ -20,4 +20,14 @@ public class UserServiceImpl implements UserService {
 	public String getAttribute(String userId, String locale, String attributeName) {
 		return userDAO.findAttributeByUser(userId, locale, attributeName).toString();
 	}
+
+	@Override
+	public boolean createUser(String userId) {
+		try {
+			userDAO.createUser(userId);
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
+	}
 }
