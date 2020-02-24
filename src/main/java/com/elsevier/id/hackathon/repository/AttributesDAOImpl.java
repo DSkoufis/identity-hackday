@@ -23,12 +23,13 @@ public class AttributesDAOImpl implements AttributesDAO {
 		dynamoDB = new DynamoDB(client);
 	}
 
-	private Table getTable() {
-		return dynamoDB.getTable("attribute");
+	@Override
+	public Item getAttribute(String value) {
+		return getTable().getItem("attribute_name", value);
 	}
 
-	@Override public Item getAttribute(String locale, String attributeName) {
-		return null;
+	private Table getTable() {
+		return dynamoDB.getTable("attribute");
 	}
 
 	@Override public boolean createAttribute(String attributeName, String dataType, String uiView) {

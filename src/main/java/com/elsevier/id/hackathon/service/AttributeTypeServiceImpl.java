@@ -20,7 +20,7 @@ public class AttributeTypeServiceImpl implements AttributeTypeService {
 
 	@Override public DataTypeEnum getAttributeType(String attributeName) {
 		if(!ATTRIBUTE_DATA_TYPE.containsKey(attributeName))  {
-			final String dataTypeString = attributesDAO.getAttributeByValue(attributeName).getString("data_type");
+			final String dataTypeString = attributesDAO.getAttribute(attributeName).getString("data_type");
 			final DataTypeEnum dataTypeEnum = DataTypeEnum.valueOf(dataTypeString);
 			ATTRIBUTE_DATA_TYPE.put(attributeName, dataTypeEnum);
 		}

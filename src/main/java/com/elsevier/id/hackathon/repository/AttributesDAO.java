@@ -9,7 +9,7 @@ import com.elsevier.id.hackathon.domain.Attribute;
 
 public interface AttributesDAO {
 
-	Item getAttribute(String locale, String attributeName);
+	Item getAttribute(String value);
 
 	boolean createAttribute(String attributeName, String dataType, String uiView);
 
