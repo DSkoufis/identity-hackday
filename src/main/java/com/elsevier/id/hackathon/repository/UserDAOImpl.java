@@ -9,12 +9,10 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.document.Item;
-import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
 import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
-import com.amazonaws.services.dynamodbv2.model.PutItemResult;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -32,10 +30,17 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override public void createUser(String userId) {
-		Item user = new Item();
-		user.withPrimaryKey(new PrimaryKey("user_id", userId));
-		PutItemResult res = getTable().putItem(user).getPutItemResult();
-		String a = "";
+		Map<String, ExpectedAttributeValue> params = new HashMap<>();
+		params.put("user_id", new ExpectedAttributeValue(false));
+
+		Map<String, AttributeValue> item = new HashMap<>();
+		item.put("user_id", new AttributeValue(userId));
+
+		PutItemRequest putItemRequest = new PutItemRequest()
+				.withTableName("user")
+				.withItem(item)
+				.withExpected(params);
+		client.putItem(putItemRequest);
 	}
 
 	@Override public void addOrUpdateAttribute(String userId, String locale, String attributeName, Object attributeValue) {
