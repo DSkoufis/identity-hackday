@@ -43,6 +43,10 @@ public class UserDAOImpl implements UserDAO {
 		client.putItem(putItemRequest);
 	}
 
+	@Override public void addOrUpdateAttribute(String userId, String locale, String attributeName, Object attributeValue) {
+
+	}
+
 	private Table getTable() {
 		return dynamoDB.getTable("user");
 	}

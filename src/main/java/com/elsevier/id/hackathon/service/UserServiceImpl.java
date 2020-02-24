@@ -11,10 +11,12 @@ public class UserServiceImpl implements UserService {
 
 	private AttributesDAO attributesDAO;
 	private UserDAO       userDAO;
+	private AttributeTypeService attributeTypeService;
 
-	public UserServiceImpl(AttributesDAO attributesDAO, UserDAO userDAO) {
+	public UserServiceImpl(AttributesDAO attributesDAO, UserDAO userDAO, AttributeTypeService attributeTypeService) {
 		this.attributesDAO = attributesDAO;
 		this.userDAO = userDAO;
+		this.attributeTypeService = attributeTypeService;
 	}
 
 	@Override
@@ -30,5 +32,9 @@ public class UserServiceImpl implements UserService {
 		} catch (AmazonServiceException e) {
 			return false;
 		}
+	}
+
+	@Override public String addOrUpdateAttribute(String userId, String locale, String attributeName, Object attributeValue) {
+		return null;
 	}
 }
