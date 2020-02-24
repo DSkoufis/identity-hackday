@@ -1,5 +1,7 @@
 package com.elsevier.id.hackathon.repository;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -11,6 +13,11 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.ExpectedAttributeValue;
+import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
+import com.amazonaws.services.dynamodbv2.model.ReturnValue;
 
 @Repository
 public class AttributesDAOImpl implements AttributesDAO {
@@ -32,8 +39,20 @@ public class AttributesDAOImpl implements AttributesDAO {
 		return dynamoDB.getTable("attribute");
 	}
 
-	@Override public boolean createAttribute(String attributeName, String dataType, String uiView) {
-		return false;
+	@Override public void createAttribute(String attributeName, String dataType, String uiView) {
+		Map<String, ExpectedAttributeValue> params = new HashMap<>();
+		params.put("attribute_name", new ExpectedAttributeValue(false));
+
+		Map<String, AttributeValue> item = new HashMap<>();
+		item.put("attribute_name", new AttributeValue(attributeName));
+		item.put("data_type", new AttributeValue(dataType));
+		item.put("ui_view", new AttributeValue(uiView));
+
+		PutItemRequest putItemRequest = new PutItemRequest()
+				.withTableName("attribute")
+				.withItem(item)
+				.withExpected(params);
+		client.putItem(putItemRequest);
 	}
 
 	@Override public void addOrUpdateAttributeValues(String attributeName, String locale, Map<Long, Object> attributeValues) {

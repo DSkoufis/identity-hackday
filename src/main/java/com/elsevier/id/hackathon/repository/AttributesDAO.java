@@ -11,7 +11,7 @@ public interface AttributesDAO {
 
 	Item getAttribute(String value);
 
-	boolean createAttribute(String attributeName, String dataType, String uiView);
+	void createAttribute(String attributeName, String dataType, String uiView);
 
 	void addOrUpdateAttributeValues(String attributeName, String locale, Map<Long, Object> attributeValues);
 
