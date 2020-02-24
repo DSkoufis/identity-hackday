@@ -1,10 +1,9 @@
 package com.elsevier.id.hackathon;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.elsevier.id.hackathon.db.AttributesTable;
+import com.elsevier.id.hackathon.repository.AttributesTable;
 
 @SpringBootApplication
 public class HackathonApplication {

@@ -1,6 +1,5 @@
-package com.elsevier.id.hackathon.db;
+package com.elsevier.id.hackathon.repository;
 
-import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -17,7 +16,7 @@ public class AttributesTable {
 	}
 
 	public Item getAttribute() {
-		return dynamoDB.getTable("attribute").getItem("attribute_name", "salutation");
+		return dynamoDB.getTable("attribute").getItem("ui_view", "dropdown");
 	}
 
 }
