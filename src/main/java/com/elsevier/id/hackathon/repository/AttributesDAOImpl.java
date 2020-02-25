@@ -63,12 +63,18 @@ public class AttributesDAOImpl implements AttributesDAO {
 		client.putItem(putItemRequest);
 	}
 
-	@Override public void addOrUpdateAttributeValues(String attributeName, String locale, Map<String, Object> attributeValues) {
+	@Override public void addOrUpdateAttributeValues(String attributeName, String locale,
+			String displayName, Map<String, Object> attributeValues) {
+
+		final Map<String, Object> localeMap = new HashMap<>();
+
+		localeMap.put("display_name", displayName);
+		localeMap.put("values", attributeValues);
 
 		UpdateItemSpec updateItemSpec = new UpdateItemSpec()
 				.withPrimaryKey("attribute_name", attributeName)
 				.withUpdateExpression("set " + locale + " = :lm")
-				.withValueMap(Collections.singletonMap(":lm", attributeValues))
+				.withValueMap(Collections.singletonMap(":lm", localeMap))
 				.withReturnValues(ReturnValue.UPDATED_NEW);
 		getTable().updateItem(updateItemSpec);
 	}

@@ -33,9 +33,9 @@ public class AttributeServiceImpl implements AttributeService {
 
 		Map<String, Object> response = new HashMap<>();
 		response.put("attribute_name", attribute.getString("attribute_name"));
-		response.put("data_type", attribute.getString("data_type"));
 		response.put("ui_view", attribute.getString("ui_view"));
-		response.put("values", localeValues);
+		response.put("display_name", localeValues.get("display_name"));
+		response.put("values", localeValues.get("values"));
 
 		return response;
 	}
@@ -55,9 +55,10 @@ public class AttributeServiceImpl implements AttributeService {
 		}
 	}
 
-	@Override public void addOrUpdateAttributeValues(String attributeName, String locale, Map<String, Object> attributeValues) {
+	@Override public void addOrUpdateAttributeValues(String attributeName, String locale, String displayName,
+			Map<String, Object> attributeValues) {
 
-		attributesDAO.addOrUpdateAttributeValues(attributeName, locale, attributeValues);
+		attributesDAO.addOrUpdateAttributeValues(attributeName, locale, displayName, attributeValues);
 
 	}
 }
