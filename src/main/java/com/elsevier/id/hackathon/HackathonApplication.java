@@ -3,8 +3,6 @@ package com.elsevier.id.hackathon;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.elsevier.id.hackathon.repository.AttributesDAOImpl;
-
 @SpringBootApplication
 public class HackathonApplication {
 

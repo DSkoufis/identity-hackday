@@ -1,15 +1,15 @@
 package com.elsevier.id.hackathon.repository;
 
+import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Repository;
-
 import com.amazonaws.services.dynamodbv2.document.Item;
-import com.elsevier.id.hackathon.domain.Attribute;
 
 public interface AttributesDAO {
 
 	Item getAttribute(String value);
+
+	List<Item> getAttributes(List<String> values);
 
 	void createAttribute(String attributeName, String dataType, String uiView);
 

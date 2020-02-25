@@ -2,12 +2,15 @@ package com.elsevier.id.hackathon.service;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.dynamodbv2.document.Item;
+import com.elsevier.id.hackathon.domain.Attribute;
 import com.elsevier.id.hackathon.repository.AttributesDAO;
 
 @Service
@@ -34,6 +37,12 @@ public class AttributeServiceImpl implements AttributeService {
 		response.put("values", localeValues);
 
 		return response;
+	}
+
+	@Override public List<Attribute> getAttributes(String locale, List<String> attributes) {
+		return attributesDAO.getAttributes(attributes)
+				.stream().map(it -> new Attribute(it, locale))
+				.collect(Collectors.toList());
 	}
 
 	@Override public boolean createAttribute(String attributeName, String dataType, String uiView) {
