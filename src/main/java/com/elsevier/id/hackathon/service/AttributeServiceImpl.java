@@ -45,7 +45,9 @@ public class AttributeServiceImpl implements AttributeService {
 		}
 	}
 
-	@Override public void addOrUpdateAttributeValues(String attributeName, String locale, Map<Long, Object> attributeValues) {
+	@Override public void addOrUpdateAttributeValues(String attributeName, String locale, Map<String, Object> attributeValues) {
+
+		attributesDAO.addOrUpdateAttributeValues(attributeName, locale, attributeValues);
 
 	}
 }

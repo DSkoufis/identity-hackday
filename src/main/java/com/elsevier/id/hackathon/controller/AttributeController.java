@@ -1,9 +1,11 @@
 package com.elsevier.id.hackathon.controller;
 
-import org.springframework.stereotype.Controller;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.elsevier.id.hackathon.domain.CreateAttribute;
 import com.elsevier.id.hackathon.service.AttributeService;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.gson.Gson;
 
 @RestController
 @RequestMapping("/attribute")
@@ -23,12 +26,12 @@ public class AttributeController {
 		this.attributeService = attributeService;
 	}
 
-	@GetMapping("/{locale}/{attribute_name}")
-	public JsonNode getAttributeValues(
-			@RequestParam("locale") String locale,
-			@RequestParam("attribute_name") String attributeName) {
+	@GetMapping("/{attribute_name}/{locale}")
+	public String getAttributeValues(
+			@PathVariable("attribute_name") String attributeName,
+			@PathVariable("locale") String locale) {
 
-		return null;
+		return new Gson().toJson(attributeService.getAttributeValues(locale, attributeName));
 	}
 
 	@PostMapping("/{attribute_name}")
@@ -36,6 +39,14 @@ public class AttributeController {
 			@PathVariable("attribute_name") String attributeName,
 			@RequestBody CreateAttribute createAttribute) {
 		return attributeService.createAttribute(attributeName, createAttribute.getDataType(), createAttribute.getUiView());
+	}
+
+	@PutMapping("/{attribute_name}/{locale}")
+	public void addOrUpdateAttributeValues(@PathVariable("attribute_name") String attributeName,
+			@PathVariable("locale") String locale,
+			@RequestBody Map<String, Object> attributeValues) {
+
+		attributeService.addOrUpdateAttributeValues(attributeName, locale, attributeValues);
 	}
 
 }

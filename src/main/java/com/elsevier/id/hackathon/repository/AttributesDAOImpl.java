@@ -35,10 +35,6 @@ public class AttributesDAOImpl implements AttributesDAO {
 		return getTable().getItem("attribute_name", value);
 	}
 
-	private Table getTable() {
-		return dynamoDB.getTable("attribute");
-	}
-
 	@Override public void createAttribute(String attributeName, String dataType, String uiView) {
 		Map<String, ExpectedAttributeValue> params = new HashMap<>();
 		params.put("attribute_name", new ExpectedAttributeValue(false));
@@ -55,7 +51,17 @@ public class AttributesDAOImpl implements AttributesDAO {
 		client.putItem(putItemRequest);
 	}
 
-	@Override public void addOrUpdateAttributeValues(String attributeName, String locale, Map<Long, Object> attributeValues) {
+	@Override public void addOrUpdateAttributeValues(String attributeName, String locale, Map<String, Object> attributeValues) {
 
+		UpdateItemSpec updateItemSpec = new UpdateItemSpec()
+				.withPrimaryKey("attribute_name", attributeName)
+				.withUpdateExpression("set " + locale + " = :lm")
+				.withValueMap(Collections.singletonMap(":lm", attributeValues))
+				.withReturnValues(ReturnValue.UPDATED_NEW);
+		getTable().updateItem(updateItemSpec);
+	}
+
+	private Table getTable() {
+		return dynamoDB.getTable("attribute");
 	}
 }
