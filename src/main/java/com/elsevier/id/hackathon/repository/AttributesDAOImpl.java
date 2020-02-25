@@ -42,7 +42,7 @@ public class AttributesDAOImpl implements AttributesDAO {
 
 	@Override public List<Item> getAttributes(List<String> values) {
 		TableKeysAndAttributes attributesQuery = new TableKeysAndAttributes("attribute");
-		attributesQuery.addHashOnlyPrimaryKeys("Name", values);
+		attributesQuery.addHashOnlyPrimaryKeys("attribute_name", values.toArray());
 
 		return dynamoDB.batchGetItem(attributesQuery).getTableItems().values().stream().flatMap(Collection::stream).collect(Collectors.toList());
 	}

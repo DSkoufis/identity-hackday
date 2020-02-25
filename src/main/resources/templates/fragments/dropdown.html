@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="layoutTemplate">
+    <label th:for="'dropdown-' + ${model.getName()}" th:text="${model.getAttributes().get('display_name')}"></label>
+    <select th:id="'dropdown-' + ${model.getName()}">
+        <option th:value="${entry.key}" th:each="entry : ${model.getAttributes().get('values')}" th:text="${entry.value}"></option>
+    </select>
+</div>
+</body>
+</html>

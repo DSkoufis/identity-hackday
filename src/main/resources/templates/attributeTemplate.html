@@ -4,8 +4,9 @@
 </head>
 <body>
 
-<p th:each="item: ${items}"
-   th:text="${item.getAttributes()}"></p>
+<div th:each="item: ${items}">
+    <div th:include="fragments/__${item.getUiView()}__ :: layoutTemplate" th:with="model=${item}"></div>
+</div>
 
 </body>
 </html>

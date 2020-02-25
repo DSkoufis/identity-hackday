@@ -2,6 +2,7 @@ package com.elsevier.id.hackathon.service;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -42,7 +43,7 @@ public class AttributeServiceImpl implements AttributeService {
 	@Override public List<Attribute> getAttributes(String locale, List<String> attributes) {
 		return attributesDAO.getAttributes(attributes)
 				.stream().map(it -> new Attribute(it, locale))
-				.collect(Collectors.toList());
+				.collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	@Override public boolean createAttribute(String attributeName, String dataType, String uiView) {

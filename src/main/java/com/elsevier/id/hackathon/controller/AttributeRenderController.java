@@ -1,6 +1,7 @@
 package com.elsevier.id.hackathon.controller;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,8 @@ public class AttributeRenderController {
 			@RequestParam List<String> attrs,
 			Model model) {
 
-		List<Attribute> attributes = getAttrs(locale);//attributeService.getAttributes(locale, attrs);
+		List<Attribute> attributes = attributeService.getAttributes(locale, attrs);
+		attributes.sort(Comparator.comparing(item -> attrs.indexOf(item.getName())));
 		model.addAttribute("items", attributes);
 		return "attributeTemplate";
 	}
