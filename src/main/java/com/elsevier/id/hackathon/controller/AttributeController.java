@@ -1,12 +1,15 @@
 package com.elsevier.id.hackathon.controller;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,12 +28,15 @@ public class AttributeController {
 		this.attributeService = attributeService;
 	}
 
-	@GetMapping("/{attribute_name}/{locale}")
-	public String getAttributeValues(
+	@GetMapping(value = "/{attribute_name}/{locale}", produces = "application/json")
+	public ResponseEntity<String> getAttributeValues(
 			@PathVariable("attribute_name") String attributeName,
-			@PathVariable("locale") String locale) {
+			@PathVariable("locale") String locale,
+			HttpServletResponse response) {
 
-		return new Gson().toJson(attributeService.getAttributeValues(locale, attributeName));
+		return ResponseEntity.ok().header("Access-Control-Allow-Origin", "*")
+				.body(new Gson().toJson(attributeService.getAttributeValues(locale, attributeName)));
+
 	}
 
 	@PostMapping("/{attribute_name}")
