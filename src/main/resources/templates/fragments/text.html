@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="layoutTemplate">
+    <label th:for="'text-' + ${model.getName()}" th:text="${model.getAttributes().get('display_name')}"></label>
+    <input th:id="'text-' + ${model.getName()}"/>
+</div>
+</body>
+</html>
