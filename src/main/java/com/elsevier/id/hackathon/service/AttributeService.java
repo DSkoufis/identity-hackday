@@ -7,5 +7,5 @@ public interface AttributeService {
 
 	boolean createAttribute(String attributeName, String dataType, String uiView);
 
-	void addOrUpdateAttributeValues(String attributeName, String locale, Map<String, Object> attributeValues);
+	void addOrUpdateAttributeValues(String attributeName, String locale, String displayName, Map<String, Object> attributeValues);
 }

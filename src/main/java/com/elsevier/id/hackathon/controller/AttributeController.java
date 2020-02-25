@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.elsevier.id.hackathon.domain.CreateAttribute;
 import com.elsevier.id.hackathon.service.AttributeService;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.Gson;
 
 @RestController
@@ -44,9 +43,10 @@ public class AttributeController {
 	@PutMapping("/{attribute_name}/{locale}")
 	public void addOrUpdateAttributeValues(@PathVariable("attribute_name") String attributeName,
 			@PathVariable("locale") String locale,
+			@RequestParam("display_name") String displayName,
 			@RequestBody Map<String, Object> attributeValues) {
 
-		attributeService.addOrUpdateAttributeValues(attributeName, locale, attributeValues);
+		attributeService.addOrUpdateAttributeValues(attributeName, locale, displayName, attributeValues);
 	}
 
 }
